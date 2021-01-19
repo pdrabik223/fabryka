@@ -1,11 +1,11 @@
+#include "BeepMorse.h"
+#include "ConsoleMorse.h"
 #include <iostream>
-#include "MorseFactory.h"
 
-int main(int, char **) {
+int main() {
+  IMorse *f = new ConsoleMorse();
 
-  MorseFactory f;
-
-  std::cout << "Hello world";
+  f->emmit("fuck");
 
   return 0;
 }

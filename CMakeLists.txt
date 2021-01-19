@@ -9,8 +9,7 @@ include_directories(
   src/
   inc/
   lib/debug_cpp
-  lib/morse
-  /usr/include
+  /usr/include # to jest na wszelki wypadek gdyby TAK
 )
 
 enable_testing()
@@ -18,27 +17,27 @@ enable_testing()
 set(CMAKE_CXX_FLAGS "-Wpedantic -g -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 arch=native")
 
-add_library(
-  morse STATIC
-  lib/morse/morse.cpp
-)
+# add_library(
+# ##  morse STATIC
+# ##  lib/morse/morse.cpp
+# )
 
-add_library(
-  morse_code STATIC
-  lib/morse/morse_code.cpp
-)
 
-link_libraries(
-  morse_code,
-  morse
-)
+# link_libraries(
+#   morse_code,
+#   morse
+# )
 
 add_compile_definitions(DEBUG)
 
 add_executable(
   morse_factory
   src/main.cpp
-  src/MorseFactory.cpp
+  src/BeepMorse.cpp
+  src/ConsoleMorse.cpp
+  src/MorseCode.cpp
+  src/IMorse.cpp
+ # src/MorseFactory.cpp
 )
 
 
