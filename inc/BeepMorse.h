@@ -3,6 +3,8 @@
 #include "IMorse.h"
 #include "MorseCode.h"
 
+#include <windows.h>
+
 class BeepMorse : public IMorse {
 
 public:

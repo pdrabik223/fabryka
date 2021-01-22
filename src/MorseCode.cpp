@@ -1,5 +1,6 @@
 #include "MorseCode.h"
 
+
 std::string MorseCode::parse(char letter) {
 
   switch (letter) {
@@ -186,6 +187,7 @@ MorseCode::MorseCode(int message) {
   for (auto i : std::to_string(message))
     parsed_code += parse(i);
   parsed_code += ' '; // spacja po znaku
+
 }
 
 MorseCode::MorseCode(double message) {
@@ -194,6 +196,7 @@ MorseCode::MorseCode(double message) {
   for (auto i : std::to_string(message))
     parsed_code += parse(i);
   parsed_code += ' '; // spacja po znaku
+
 }
 MorseCode::MorseCode(const MorseCode &other) {
   this->parsed_code = other.parsed_code;
@@ -206,4 +209,4 @@ MorseCode &MorseCode::operator=(const MorseCode &other) {
   return *this;
 }
 
-char MorseCode::operator[](int position) { return parsed_code[position]; }
+char MorseCode::operator[]( unsigned position) { return parsed_code[position]; }

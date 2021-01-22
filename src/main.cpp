@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main() {
-  IMorse *f = new ConsoleMorse();
+  IMorse *f = new BeepMorse();
 
   f->emmit("fuck");
 

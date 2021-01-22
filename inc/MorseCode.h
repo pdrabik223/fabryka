@@ -1,3 +1,6 @@
+
+
+
 #ifndef MORSECODE_H
 #define MORSECODE_H
 
@@ -13,7 +16,8 @@ public:
   MorseCode(int);
   MorseCode(double);
 
-  char operator[](int position); // to jest lepiej zrobic iteratorem
+  char operator[](unsigned position); // to jest lepiej zrobic iteratorem
+
   int size() { return parsed_code.size(); }
 
   MorseCode(const MorseCode &);
