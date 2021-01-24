@@ -8,9 +8,10 @@
 class BeepMorse : public IMorse {
 
 public:
-  BeepMorse();
-  BeepMorse(int, int, int, int, int);
+  BeepMorse(); 
   BeepMorse(int, int, int);
+  BeepMorse(int, int, int, int, int);
+ 
   BeepMorse(const BeepMorse &);
   BeepMorse &operator=(const BeepMorse &);
 

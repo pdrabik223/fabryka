@@ -75,17 +75,17 @@ void BeepMorse::emmit(MorseCode message) {
     case '.':
       // beepowanie
         Beep(dot_freaquency, dot_time);
-        std::cout << ".";
+       // std::cout << ".";
             break;
     case '-':
       // beepowanie
         Beep(dash_freaquency, dash_time);
-        std::cout << "-";
+        //std::cout << "-";
         break;
     default:
         // beep space
         Sleep(pause_time);
-        std::cout << " ";
+        //std::cout << " ";
         break;
     }
   }

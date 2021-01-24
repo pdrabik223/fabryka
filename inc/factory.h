@@ -1,34 +1,45 @@
 
 #ifndef FACTORY_H
 #define FACTORY_H
-#include "BeepMorse.h"// 5 ints
-#include "BlinkMorse.h"// times so 3 ints
-#include "ConsoleMorse.h" // nothing
-#include "FileMorse.h"// filepath
+#include "BeepMorse.h"
+#include "BlinkMorse.h"
+#include "ConsoleMorse.h" 
+#include "FileMorse.h"
 #include <vector>
 #include <string>
 
 class factory {
-public:
+	
 
-	factory()=delete;
+public:
+	static enum output {
+		Beep,
+		Blink,
+		Console,
+		File
+	};
+
+	factory();
 	factory(const factory&);
 	factory& operator=(const factory& other);
-	factory(std::string);
 	
-	
-	void setAll(int, int, int, int, int);
-	void setDotFreaquency(int);
-	void setDashFreaquency(int);
-	void setDotTime(int);
-	void setdashTime(int);
-	void setPauseTime(int);
-
+	void setExternalInfo(std::string);
+	void setOutput(output);
 	void emmit(MorseCode);
-	~factory() { delete morse; };
+	
+	~factory() { if(morse != nullptr) delete morse; };
 
 
 protected:
+
+
+	std::string filepath;
+	int dot_freaquency;
+	int dash_freaquency;
+	int dot_time;
+	int dash_time;
+	int pause_time;
+	
 	IMorse* morse;
 
 };
