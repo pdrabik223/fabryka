@@ -10,7 +10,7 @@ class BeepMorse : public IMorse {
 public:
   BeepMorse();
   BeepMorse(int, int, int, int, int);
-
+  BeepMorse(int, int, int);
   BeepMorse(const BeepMorse &);
   BeepMorse &operator=(const BeepMorse &);
 
@@ -23,9 +23,9 @@ public:
   void setPauseTime(int);
 
   virtual void emmit(MorseCode) override;
-
+  
 protected:
-  void beep(char);
+ 
 
   int dot_freaquency;
   int dash_freaquency;

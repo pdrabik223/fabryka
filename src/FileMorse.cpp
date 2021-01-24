@@ -10,9 +10,14 @@ FileMorse::FileMorse(std::string filepath)
 void FileMorse::emmit(MorseCode message)
 {
 	std::fstream plik;
-	plik.open(filepath, std::ios::in);
+	plik.open(filepath, std::ios::out);
+
+	std::cout << plik.good()<<std::endl<<filepath;
+	
 	// moj wlasny encoding 
-	// na wypadek czegostam
+	// na wypadek czegos tam
+
+
 	plik<<" dot_freaquency "<< dot_freaquency<<'\n';
 	plik<<" dash_freaquency "<< dash_freaquency<<'\n';
 	plik<<" dot_time "<< dot_time<<'\n';

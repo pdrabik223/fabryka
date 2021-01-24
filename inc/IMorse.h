@@ -5,9 +5,11 @@
 class IMorse {
 public:
   virtual void emmit(MorseCode) = 0;
+  virtual ~IMorse() {};
 
 protected:
-  IMorse() {}
+	IMorse() {};
+
   // IMorse(const IMorse&); IMorse jest Interfejsem,
   // wiec nie mozna stwozyc jego obiektu
 };
