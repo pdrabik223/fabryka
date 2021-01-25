@@ -18,7 +18,7 @@ public:
 
   char operator[](unsigned position); // to jest lepiej zrobic iteratorem
 
-  int size() { return parsed_code.size(); }
+  unsigned size() { return parsed_code.size();}
 
   MorseCode(const MorseCode &);
   MorseCode &operator=(const MorseCode &);

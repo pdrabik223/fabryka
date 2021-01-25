@@ -7,11 +7,17 @@ int main() {
 	f.setOutput(factory::Console);
 	f.emmit("ala ma kota");
 
-	f.setExternalInfo("900 1700 400 500 700 ");
+	f.setExternalInfo("900 1700 400");
 	f.setOutput(factory::Blink);
-	f.emmit("a kot ma ale");
+	f.emmit("a");
 
 	f.setExternalInfo("morse_output.txt");
+	f.set_dot_freaquency(1800);
+	f.set_dash_freaquency(800);
+	f.set_dot_time(300);
+	f.set_dash_time(500);
+	f.set_pause_time(600);
+
 	f.setOutput(factory::File);
 	f.emmit("to dobrze ze sie maja");
 	f.emmit(21);
@@ -19,7 +25,9 @@ int main() {
 
 	f.setExternalInfo("morse_output.txt");
 	f.setOutput(factory::Beep);
-	f.emmit("bo bez milosci zyce nie ma sensu");
+	factory g;
+	g = f;
+	g.emmit("bo bez milosci zyce nie ma sensu");
 	
 
 

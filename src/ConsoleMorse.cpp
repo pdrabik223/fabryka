@@ -9,5 +9,4 @@ void ConsoleMorse::emmit(MorseCode message) {
     std::cout << message[letter];
   }
 
-
 }

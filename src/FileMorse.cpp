@@ -22,30 +22,29 @@ FileMorse::FileMorse(std::string filepath, int dot_freaquency, int dash_freaquen
 
 }
 
-FileMorse::FileMorse(const FileMorse& other)
-{
-	dot_freaquency = other.dot_freaquency;
-	dash_freaquency = other.dash_freaquency;
-	dot_time = other.dot_time;
-	dash_time = other.dash_time;
-	pause_time = other.pause_time;
 
-	filepath = other.filepath;
 
+
+void FileMorse::setAll(int dot_freaquency, int dash_freaquency, int dot_time,
+	int dash_time, int pause_time) {
+	this->dot_freaquency = dot_freaquency;
+	this->dash_freaquency = dash_freaquency;
+	this->dot_time = dot_time;
+	this->dash_time = dash_time;
+	this->pause_time = pause_time;
 }
 
-FileMorse& FileMorse::operator=(const FileMorse& other)
-{
-	if (this == &other) return *this;
-	dot_freaquency = other.dot_freaquency;
-	dash_freaquency = other.dash_freaquency;
-	dot_time = other.dot_time;
-	dash_time = other.dash_time;
-	pause_time = other.pause_time;
-
-	filepath = other.filepath;
-	return *this;
+void FileMorse::setDotFreaquency(int dot_freaquency) {
+	this->dot_freaquency = dot_freaquency;
 }
+void FileMorse::setDashFreaquency(int dash_freaquency) {
+	this->dash_freaquency = dash_freaquency;
+}
+void FileMorse::setdashTime(int dash_time) { this->dash_time = dash_time; }
+void FileMorse::setDotTime(int dot_time) { this->dot_time = dot_time; }
+void FileMorse::setPauseTime(int pause_time) { this->pause_time = pause_time; }
+
+
 
 void FileMorse::emmit(MorseCode message)
 {

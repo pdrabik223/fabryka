@@ -1,3 +1,6 @@
+
+
+
 #ifndef IMORSE_H
 #define IMORSE_H
 #include "MorseCode.h"
@@ -6,7 +9,7 @@ class IMorse {
 public:
   virtual void emmit(MorseCode) = 0;
   virtual ~IMorse() {};
-
+  virtual IMorse* clone() = 0;
 protected:
 	IMorse() {};
 

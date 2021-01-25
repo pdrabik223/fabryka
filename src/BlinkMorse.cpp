@@ -16,27 +16,27 @@ void numlockBind() {
 
 }
 
-BlinkMorse::BlinkMorse(const BlinkMorse& other)
+BlinkMorse::BlinkMorse()
 {
-    dot_freaquency = other.dot_freaquency;
-    dash_freaquency = other.dash_freaquency;
-    dot_time = other.dot_time;
-    dash_time = other.dash_time;
-    pause_time = other.pause_time;
+    dot_time = 500; // wartosci bazowe
+    dash_time = 500;
+    pause_time = 500;
 }
 
-BlinkMorse& BlinkMorse::operator=(const BlinkMorse& other)
+BlinkMorse::BlinkMorse(int dot_time, int dash_time, int pause_time)
 {
-    if (this == &other)
-        return *this;
-    dot_freaquency = other.dot_freaquency;
-    dash_freaquency = other.dash_freaquency;
-    dot_time = other.dot_time;
-    dash_time = other.dash_time;
-    pause_time = other.pause_time;
-
-    return *this;
+   this-> dot_time = dot_time; // wartosci bazowe
+   this-> dash_time = dash_time;
+   this-> pause_time = pause_time;
 }
+
+
+void BlinkMorse::setdashTime(int dash_time) { this->dash_time = dash_time; }
+void BlinkMorse::setDotTime(int dot_time) { this->dot_time = dot_time; }
+void BlinkMorse::setPauseTime(int pause_time) { this->pause_time = pause_time; }
+
+
+
 
 void BlinkMorse::emmit(MorseCode message)
 {

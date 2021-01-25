@@ -7,7 +7,7 @@
 #include "FileMorse.h"
 #include <vector>
 #include <string>
-
+#include <map>
 class factory {
 	
 
@@ -20,20 +20,32 @@ public:
 	};
 
 	factory();
-	factory(const factory&);
-	factory& operator=(const factory& other);
+	factory(const factory&); // ta klasa wymaga zarowno konstruktora kopiujacego 
+	factory& operator=(const factory& other);// jak i operatora =
 	
 	void setExternalInfo(std::string);
 	void setOutput(output);
 	void emmit(MorseCode);
 	
-	~factory() { if(morse != nullptr) delete morse; };
+
+	void set_filepath(std::string);
+
+	void set_dot_freaquency(int);
+	void set_dash_freaquency(int);
+	void set_dot_time(int);
+	void set_dash_time(int);
+	void set_pause_time(int);
+
+
+	~factory() { delete morse;  }; // morse w zadnym momencie nie jest nullptr
+								// dlatego nie musze sprawdzac czy jest
 
 
 protected:
 
 
 	std::string filepath;
+
 	int dot_freaquency;
 	int dash_freaquency;
 	int dot_time;

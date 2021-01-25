@@ -1,6 +1,6 @@
 #include "factory.h"
-#include <map>
 
+// 
 std::vector<int> convertStrtoArr(std::string str)
 {
 
@@ -10,7 +10,7 @@ std::vector<int> convertStrtoArr(std::string str)
 	for (int i = 0; i < str.length(); i++) {
 
 		switch (str[i]) {
-		case' ':case ',':case ';':case'\t':case'\n':
+		case' ':case ',':case ';':case'\t':case'\n': // znaki "biale" 
 			digit_string = false;
 			break;
 		case'0':case '1':case '2':case'3':case'4':case'5':case'6':case'7':case'8':case'9':
@@ -64,7 +64,7 @@ factory::factory()
 	dash_time = 500;
 	pause_time = 500;
 	filepath = "no_path_given";
-	morse = nullptr;
+	morse = new ConsoleMorse(); // nie wymaga zadnych argumentow, przyjalem za defaultowy
 
 }
 
@@ -76,7 +76,9 @@ factory::factory(const factory& other)
 	dash_time = other.dash_time;
 	pause_time = other.pause_time;
 	filepath = other.filepath;
-	morse = other.morse;
+
+
+	morse = other.morse->clone();
 
 }
 
@@ -88,8 +90,11 @@ factory& factory::operator=(const factory& other)
 	dot_time = other.dot_time;
 	dash_time = other.dash_time;
 	pause_time = other.pause_time;
-	morse = other.morse;
 	filepath = other.filepath;
+
+
+	morse = other.morse->clone();
+
 
 	return*this;
 }
@@ -98,53 +103,64 @@ factory& factory::operator=(const factory& other)
 void factory::setExternalInfo(std::string input)
 {
 
-	std::map<std::string, int> data;
-
-	data["dot_freaquency"] = dot_freaquency;  // dafault values 
-	data["dash_freaquency"] = dash_freaquency; // wstawiam wartosci domyslne
-	data["dot_time"] = dot_time;
-	data["dash_time"] = dash_time;
-	data["pause_time"] = pause_time;
-
 
 
 	if (input.size() > 4 && input.substr(input.size() - 4, input.size()) == ".txt") {
-		 getFromFile(input, data);
-		 this->filepath = input;
+
+
+		std::map<std::string, int> data; // deklaruje tylko na potrzeby  getFromFile
+
+		data["dot_freaquency"] = dot_freaquency;  // dafault values 
+		data["dash_freaquency"] = dash_freaquency; // wstawiam wartosci domyslne
+		data["dot_time"] = dot_time;
+		data["dash_time"] = dash_time;
+		data["pause_time"] = pause_time;
+
+
+
+
+
+		getFromFile(input, data);
+		this->filepath = input;
+
+
+
+		// zapisywanie wartosci w zmiennej
+	   // this->filepath na wypadek nie podania sciezki filepath po 
+		this->dot_freaquency = data["dot_freaquency"];
+		this->dash_freaquency = data["dash_freaquency"];
+		this->dot_time = data["dot_time"];
+		this->dash_time = data["dash_time"];
+		this->pause_time = data["pause_time"];
+
+
 	}
 	else {
 		std::vector<int> parsed_values = convertStrtoArr(input);
-	
 
 		switch (parsed_values.size()) {
 		case 3: // nadpisywanie defautowych wartosci 
-			data["dot_time"] = parsed_values[0];
-			data["dash_time"] = parsed_values[1];
-			data["pause_time"] = parsed_values[2];
-			
+			dot_time = parsed_values[0];
+			dash_time = parsed_values[1];
+			pause_time = parsed_values[2];
+
 			break;
 		case 6: // 
-			data["dot_freaquency"] = parsed_values[0];  // dafault values 
-			data["dash_freaquency"] = parsed_values[1]; // wstawiam wartosci domysln
-			
-			data["dot_time"] = parsed_values[2];
-			data["dash_time"] = parsed_values[3];
-			data["pause_time"] = parsed_values[4];
+			dot_freaquency = parsed_values[0];  // dafault values 
+			dash_freaquency = parsed_values[1]; // wstawiam wartosci domysln
+
+			dot_time = parsed_values[2];
+			dash_time = parsed_values[3];
+			pause_time = parsed_values[4];
 
 			break;
 
-			default: 
-				break;
+		default:
+			break;
 		}
 
 	}
-	// zapisywanie wartosci w zmiennej
-	// this->filepath na wypadek nie podania sciezki filepath po 
-	this-> dot_freaquency = data["dot_freaquency"];
-	this-> dash_freaquency = data["dash_freaquency"];
-	this-> dot_time = data["dot_time"];
-	this-> dash_time = data["dash_time"];
-	this-> pause_time = data["pause_time"];
+
 
 }
 
@@ -156,43 +172,37 @@ void factory::setOutput(output type)
 {
 	switch (type) {
 	case Beep:
-		if (morse != nullptr) delete morse;
+		delete morse; // zwalniam pamiec 
 
-		morse = new BeepMorse(this->dot_freaquency ,
-		this->dash_freaquency ,
-		this->dot_time ,
-		this->dash_time ,
-		this->pause_time);
+		morse = new BeepMorse(this->dot_freaquency,
+			this->dash_freaquency,
+			this->dot_time,
+			this->dash_time,
+			this->pause_time); // przypisuje pozadany obiekt
 
 		break;
 	case Blink:
-		if (morse != nullptr) delete morse;
+		delete morse;
 
-		morse = new BlinkMorse(this->dot_freaquency,
-			this->dash_freaquency,
-			this->dot_time,
+		morse = new BlinkMorse(this->dot_time,
 			this->dash_time,
 			this->pause_time);
 
 		break;
 	case Console:
-		if (morse != nullptr) delete morse;
+		delete morse;
 
-		morse = new ConsoleMorse(this->dot_freaquency,
+		morse = new ConsoleMorse();
+
+		break;
+	case File:
+		delete morse;
+
+		morse = new FileMorse(this->filepath, this->dot_freaquency,
 			this->dash_freaquency,
 			this->dot_time,
 			this->dash_time,
 			this->pause_time);
-
-		break;
-	case File:
-		if (morse != nullptr) delete morse;
-
-		morse = new FileMorse(filepath, this->dot_freaquency ,
-		this->dash_freaquency ,
-		this->dot_time ,
-		this->dash_time ,
-		this->pause_time);
 
 		break;
 
@@ -204,4 +214,35 @@ void factory::emmit(MorseCode message)
 {
 	morse->emmit(message);
 
+}
+
+void factory::set_filepath(std::string file_path)
+{
+	this->filepath = file_path;
+}
+
+void factory::set_dot_freaquency(int dot_freaquency)
+{
+	this->dot_freaquency = dot_freaquency;
+}
+
+void factory::set_dash_freaquency(int dash_freaquency)
+{
+	this->dash_freaquency = dash_freaquency;
+}
+
+void factory::set_dot_time(int dot_time)
+{
+	this->dot_time = dot_time;
+
+}
+
+void factory::set_dash_time(int dash_time)
+{
+	this->dash_time = dash_time;
+}
+
+void factory::set_pause_time(int pause_time)
+{
+	this->pause_time = pause_time;
 }

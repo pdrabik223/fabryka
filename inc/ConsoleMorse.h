@@ -1,23 +1,18 @@
 #ifndef CONSOLEMORSE_H
 #define CONSOLEMORSE_H
-#include "BeepMorse.h"
-#include "MorseCode.h"
+#include "IMorse.h"
 
-class ConsoleMorse : public BeepMorse {
+
+class ConsoleMorse : public IMorse {
 public:
-  ConsoleMorse() : BeepMorse(){};
-	ConsoleMorse(int dot_freaquency, int dash_freaquency, int dot_time,
-	  int dash_time, int pause_time) :BeepMorse(dot_freaquency, dash_freaquency, dot_time, dash_time, pause_time) {};
+	ConsoleMorse(){};
+	// poniewaz klasa nie posiada zadnych wartoœci 
+	// nie potrzebje deklarowac zni kontruktora kopiujacego ani operatora=
+	// ani destruktora
 
 
-
-  ConsoleMorse(const ConsoleMorse& other) : BeepMorse(other) {};
-
-
-  ConsoleMorse &operator=(const ConsoleMorse & other );
-
- 
 
   virtual void emmit(MorseCode) override;
+  virtual ConsoleMorse* clone() { return new ConsoleMorse(*this); }
 };
 #endif // CONSOLEMORSE_H
