@@ -1,24 +1,24 @@
 #include "FileMorse.h"
 #include <fstream>
 
-FileMorse::FileMorse(std::string filepath)
+FileMorse::FileMorse(std::string file_path)
 { // mo¿e wczytywanie danych z pluku? 
 	this->dot_freaquency = dot_freaquency;
 	this->dash_freaquency = dash_freaquency;
 	this->dot_time = dot_time;
 	this->dash_time = dash_time;
 	this->pause_time = pause_time;
-	this->filepath = filepath;
+	this->file_path = file_path;
 }
 
-FileMorse::FileMorse(std::string filepath, int dot_freaquency, int dash_freaquency, int dot_time, int dash_time, int pause_time)
+FileMorse::FileMorse(std::string file_path, int dot_freaquency, int dash_freaquency, int dot_time, int dash_time, int pause_time)
 {
 	this->dot_freaquency = dot_freaquency;
 	this->dash_freaquency = dash_freaquency;
 	this->dot_time = dot_time;
 	this->dash_time = dash_time;
 	this->pause_time = pause_time;
-	this->filepath = filepath;
+	this->file_path = file_path;
 
 }
 
@@ -44,12 +44,21 @@ void FileMorse::setdashTime(int dash_time) { this->dash_time = dash_time; }
 void FileMorse::setDotTime(int dot_time) { this->dot_time = dot_time; }
 void FileMorse::setPauseTime(int pause_time) { this->pause_time = pause_time; }
 
+int FileMorse::getDashFreaquency() { return dash_freaquency; }
+int FileMorse::getDotTime() { return dot_time; }
+int FileMorse::getdashTime() { return dash_time; }
+int FileMorse::getPauseTime() { return pause_time; }
+std::string FileMorse::getFilePath()
+{
+	return file_path;
+}
+int FileMorse::getDotFreaquency() { return dot_freaquency; }
 
 
 void FileMorse::emmit(MorseCode message)
 {
 	std::fstream plik;
-	plik.open(filepath, std::ios::out);
+	plik.open(file_path, std::ios::out);
 	
 	// moj wlasny encoding 
 	// na wypadek czegos tam
@@ -69,7 +78,7 @@ void FileMorse::emmit(MorseCode message)
 	plik.close();
 }
 
-void FileMorse::setfilepath(std::string filepath)
+void FileMorse::setfilepath(std::string file_path)
 {
-	this->filepath = filepath;
+	this->file_path = file_path;
 }

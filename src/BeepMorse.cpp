@@ -39,6 +39,12 @@ void BeepMorse::setdashTime(int dash_time) { this->dash_time = dash_time; }
 void BeepMorse::setDotTime(int dot_time) { this->dot_time = dot_time; }
 void BeepMorse::setPauseTime(int pause_time) { this->pause_time = pause_time; }
 
+int BeepMorse::getDashFreaquency(){return dash_freaquency;}
+int BeepMorse::getDotTime(){return dot_time;}
+int BeepMorse::getdashTime(){ return dash_time;}
+int BeepMorse::getPauseTime(){return pause_time;}
+int BeepMorse::getDotFreaquency(){   return dot_freaquency;}
+
 
 
 

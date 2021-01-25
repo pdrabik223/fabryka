@@ -1,7 +1,7 @@
 #include "MorseCode.h"
 
 
-std::string MorseCode::parse(char letter) {
+std::string MorseCode::parse(char letter) { 
 
   switch (letter) {
 
@@ -9,7 +9,7 @@ std::string MorseCode::parse(char letter) {
     return "  "; // 2 spacje pomiedzy słowami
 
   case 'a':
-  case 'A':
+  case 'A':  // kod morsa nie rozruznia wielkich liter od malych 
 
     return ".-";
 
@@ -157,6 +157,12 @@ std::string MorseCode::parse(char letter) {
     return "----.";
   case '0':
     return "-----";
+
+  case '.':
+      return ".-.-.-";
+  case ',': 
+      return "--..--";
+
   default: // exception
     return " ";
   }

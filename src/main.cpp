@@ -1,3 +1,5 @@
+
+
 #include "factory.h"
 #include <iostream>
 
@@ -12,6 +14,7 @@ int main() {
 	f.emmit("a");
 
 	f.setExternalInfo("morse_output.txt");
+
 	f.set_dot_freaquency(1800);
 	f.set_dash_freaquency(800);
 	f.set_dot_time(300);
@@ -19,15 +22,16 @@ int main() {
 	f.set_pause_time(600);
 
 	f.setOutput(factory::File);
-	f.emmit("to dobrze ze sie maja");
+	f.emmit("to dobrze ");
 	f.emmit(21);
 	f.emmit(0.37);
 
-	f.setExternalInfo("morse_output.txt");
+
+	f.setExternalInfo("700 800 900 600 400");
 	f.setOutput(factory::Beep);
 	factory g;
 	g = f;
-	g.emmit("bo bez milosci zyce nie ma sensu");
+	g.emmit("bo bez ");
 	
 
 

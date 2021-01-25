@@ -1,6 +1,5 @@
 #include "factory.h"
 
-// 
 std::vector<int> convertStrtoArr(std::string str)
 {
 
@@ -30,7 +29,8 @@ std::vector<int> convertStrtoArr(std::string str)
 	return arr;
 }
 
-
+// odczytywany plik musi byc zakodowany w specjalny sposob 
+// FileMorse realizuje ten zapis
 void  getFromFile(std::string path, std::map<std::string, int>& data) {
 	std::fstream plik;
 
@@ -42,9 +42,12 @@ void  getFromFile(std::string path, std::map<std::string, int>& data) {
 	std::string temp;
 	std::getline(plik, temp);
 	if (temp != "MP") return;// sprawdzam czy plik zawiera odpowiedni encoding
+	
+	
 	int value;
-
-	do {
+	do { // dane w pliku moga byc niepelne 
+		// w takim przypdaku odczytane zostana tylko te wpisane 
+		// reszta pozostanie default 
 		std::getline(plik, temp, '\t');
 		plik >> value;
 		if (plik.good()) data[temp] = value;
@@ -63,7 +66,7 @@ factory::factory()
 	dot_time = 500;
 	dash_time = 500;
 	pause_time = 500;
-	filepath = "no_path_given";
+	file_path = "no_path_given";
 	morse = new ConsoleMorse(); // nie wymaga zadnych argumentow, przyjalem za defaultowy
 
 }
@@ -75,7 +78,7 @@ factory::factory(const factory& other)
 	dot_time = other.dot_time;
 	dash_time = other.dash_time;
 	pause_time = other.pause_time;
-	filepath = other.filepath;
+	file_path = other.file_path;
 
 
 	morse = other.morse->clone();
@@ -90,7 +93,7 @@ factory& factory::operator=(const factory& other)
 	dot_time = other.dot_time;
 	dash_time = other.dash_time;
 	pause_time = other.pause_time;
-	filepath = other.filepath;
+	file_path = other.file_path;
 
 
 	morse = other.morse->clone();
@@ -99,6 +102,17 @@ factory& factory::operator=(const factory& other)
 	return*this;
 }
 
+
+void factory::setExternalInfo()
+{
+	dot_freaquency = 800; // default values 
+	dash_freaquency = 600;
+	dot_time = 500;
+	dash_time = 500;
+	pause_time = 500;
+	file_path = "no_path_given";
+
+}
 
 void factory::setExternalInfo(std::string input)
 {
@@ -121,7 +135,7 @@ void factory::setExternalInfo(std::string input)
 
 
 		getFromFile(input, data);
-		this->filepath = input;
+		this->file_path = input;
 
 
 
@@ -193,12 +207,12 @@ void factory::setOutput(output type)
 		delete morse;
 
 		morse = new ConsoleMorse();
-
+		
 		break;
 	case File:
 		delete morse;
 
-		morse = new FileMorse(this->filepath, this->dot_freaquency,
+		morse = new FileMorse(this->file_path, this->dot_freaquency,
 			this->dash_freaquency,
 			this->dot_time,
 			this->dash_time,
@@ -218,7 +232,7 @@ void factory::emmit(MorseCode message)
 
 void factory::set_filepath(std::string file_path)
 {
-	this->filepath = file_path;
+	this->file_path = file_path;
 }
 
 void factory::set_dot_freaquency(int dot_freaquency)
@@ -246,3 +260,13 @@ void factory::set_pause_time(int pause_time)
 {
 	this->pause_time = pause_time;
 }
+
+
+
+std::string factory::getFilePath() { return file_path; }
+int factory::getDashFreaquency() { return dash_freaquency; }
+int factory::getDotTime() { return dot_time; }
+int factory::getdashTime() { return dash_time; }
+int factory::getPauseTime() { return pause_time; }
+int factory::getDotFreaquency() { return dot_freaquency; }
+

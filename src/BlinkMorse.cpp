@@ -25,7 +25,7 @@ BlinkMorse::BlinkMorse()
 
 BlinkMorse::BlinkMorse(int dot_time, int dash_time, int pause_time)
 {
-   this-> dot_time = dot_time; // wartosci bazowe
+   this-> dot_time = dot_time; 
    this-> dash_time = dash_time;
    this-> pause_time = pause_time;
 }
@@ -35,26 +35,41 @@ void BlinkMorse::setdashTime(int dash_time) { this->dash_time = dash_time; }
 void BlinkMorse::setDotTime(int dot_time) { this->dot_time = dot_time; }
 void BlinkMorse::setPauseTime(int pause_time) { this->pause_time = pause_time; }
 
+int BlinkMorse::setDotTime()
+{
+    return dot_time;
+}
+
+int BlinkMorse::setdashTime()
+{
+    return dash_time;
+}
+
+int BlinkMorse::setPauseTime()
+{
+    return pause_time;
+}
+
 
 
 
 void BlinkMorse::emmit(MorseCode message)
 {
-    HANDLE hc = GetStdHandle(STD_OUTPUT_HANDLE);
-    std::cout << "\n";
+    HANDLE hc = GetStdHandle(STD_OUTPUT_HANDLE); // na wypadek braku numlocka u uzytkownika
+    std::cout << "\n";                           // informacje wyswietlane sa tez w konsoli
     for (auto letter = 0; letter < message.size(); letter++) {
 
         switch (message[letter]) {
         case '.':
-            numlockBind();
-            SetConsoleTextAttribute(hc, 8 + 8 * 16);
-            std::cout << " ";
+            numlockBind(); // "wciskany" jest przycisk numLock 
+            SetConsoleTextAttribute(hc, 8 + 8 * 16);// zmieniany jesty kolor konsoli
+            std::cout << " "; // wyswitlana jest biala spacja 
             
             Sleep(dot_time);
             
-            numlockBind();
-            SetConsoleTextAttribute(hc, 0 + 0 * 16);
-            std::cout << "\r \r";
+            numlockBind(); // "wyciskany" jest przycisk numLock 
+            SetConsoleTextAttribute(hc, 0 + 0 * 16);// zmieniany jesty kolor konsoli 
+            std::cout << "\r \r";// powraca na poczatek wiersza, wyswitlana jest czarna spacja wraca na poczatek wiersza
             break;
         case '-':
             numlockBind();
@@ -68,7 +83,7 @@ void BlinkMorse::emmit(MorseCode message)
             std::cout << "\r    \r";
             break;
         default:
-            // beep space
+          
             Sleep(pause_time);
            
             break;

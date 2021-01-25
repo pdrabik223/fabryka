@@ -1,4 +1,18 @@
-
+//autor Piotr Drabik
+// data utworzenia pliku : 22.1.2021
+//
+// klasa factory dla narzedzia morse 
+// pozwala na kozystanie z wybranej klasy nalezacej do rodziny morse 
+// bez wgladu w strukore rodziny  
+//
+//
+//historia zmian:
+//data:										autor:											opis:
+//
+//
+//
+//
+#pragma once
 #ifndef FACTORY_H
 #define FACTORY_H
 #include "BeepMorse.h"
@@ -23,9 +37,11 @@ public:
 	factory(const factory&); // ta klasa wymaga zarowno konstruktora kopiujacego 
 	factory& operator=(const factory& other);// jak i operatora =
 	
-	void setExternalInfo(std::string);
-	void setOutput(output);
-	void emmit(MorseCode);
+
+	void setExternalInfo(); // ustawia wartosci na defaultowe  
+	void setExternalInfo(std::string); // pobiera dane potrzebne do emitowania wiadomosci
+	void setOutput(output);// ustala sposob emitowania wiadomosci
+	void emmit(MorseCode); // "emituje" wiadomosc, 
 	
 
 	void set_filepath(std::string);
@@ -36,6 +52,12 @@ public:
 	void set_dash_time(int);
 	void set_pause_time(int);
 
+	std::string getFilePath();
+	int getDashFreaquency();
+	int getDotTime();
+	int getdashTime();
+	int getPauseTime();
+	int getDotFreaquency();
 
 	~factory() { delete morse;  }; // morse w zadnym momencie nie jest nullptr
 								// dlatego nie musze sprawdzac czy jest
@@ -44,7 +66,7 @@ public:
 protected:
 
 
-	std::string filepath;
+	std::string file_path;
 
 	int dot_freaquency;
 	int dash_freaquency;
@@ -52,7 +74,7 @@ protected:
 	int dash_time;
 	int pause_time;
 	
-	IMorse* morse;
+	IMorse* morse; // 
 
 };
 

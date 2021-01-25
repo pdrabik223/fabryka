@@ -1,6 +1,18 @@
 
-
-
+//autor Piotr Drabik
+// data utworzenia pliku : 22.01.2021
+//
+// BlinkMorse wyswietla wiadomosc morsem za pomoca klawisza numLock
+// !wymogiem jest system posiadanie systemu windows 
+// 
+//
+//historia zmian:
+//data:										autor:											opis:
+//
+//
+//
+//
+#pragma once
 #ifndef BLINKMORSE_H
 #define BLINKMORSE_H
 
@@ -21,12 +33,19 @@ public:
 	void setdashTime(int);
 	void setPauseTime(int);
 
-	virtual void emmit(MorseCode) override;
-	virtual BlinkMorse* clone() { return new BlinkMorse(*this); }
+	int setDotTime();
+	int setdashTime();
+	int setPauseTime();
+
+
+
+	virtual void emmit(MorseCode) override; // wyswietla kod morsa za pomoca diody numlock
+	virtual BlinkMorse* clone() { return new BlinkMorse(*this); } // na potrzeby factory
+	virtual ~BlinkMorse() {};
 protected:
-	int dot_time = 500;
-	int dash_time = 500;
-	int pause_time = 500;
+	int dot_time;
+	int dash_time ;
+	int pause_time ;
 
 
 };
